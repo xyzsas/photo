@@ -14,8 +14,20 @@
 </template>
 
 <script>
+const SS = window.sessionStorage
+
 export default {
-  name: 'Guide'
+  name: 'Guide',
+  data: () => ({
+    tip: '请您登陆'
+  }),
+  mounted () {
+    if (!SS.token) {
+      window.location.href = '/user/#/?c=/photo/'
+    } else {
+      this.tip = `接下来您需要选择或拍摄一张${SS.name}的免冠标准照。选择照片后，您可以在辅助线的帮助下剪裁和调整您的照片。`
+    }
+  }
 }
 </script>
 
