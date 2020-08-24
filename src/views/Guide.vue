@@ -1,7 +1,7 @@
 <template>
   <div class="guide">
     <h1>照片上传指南</h1>
-    <p>接下来您需要选择或拍摄一张免冠标准照。选择照片后，您可以在辅助线的帮助下剪裁和调整您的照片。</p>
+    <p>{{ tip }}</p>
     <div style="height: 20px;">&nbsp;</div>
     <h3>示例</h3>
     <div style="position: relative;">
