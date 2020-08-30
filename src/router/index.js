@@ -19,6 +19,11 @@ Vue.use(VueRouter)
     path: '/preview',
     name: 'Preview',
     component: () => import(/* webpackChunkName: "preview" */ '../views/Preview.vue')
+  },
+  {
+    path: '/admin',
+    name: 'Admin',
+    component: () => import(/* webpackChunkName: "admin" */ '../views/Admin.vue')
   }
 ]
 
