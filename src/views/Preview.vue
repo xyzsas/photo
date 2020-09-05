@@ -36,7 +36,7 @@ export default {
     async upload () {
       this.loading = true
       const res = await this.$ajax
-        .post('/photo/photo', { data: this.data }, {
+        .post('/photo', { data: this.data }, {
           headers: { token: SS.token }
         })
         .then(resp => {
