@@ -39,7 +39,7 @@ export default {
   methods: {
     load () {
       this.$ajax // load data
-        .get('/photo/photo', { headers: { token: SS.token } })
+        .get('/photo', { headers: { token: SS.token } })
         .then(resp => {
           this.data = resp.data
           for (const g in this.data) this.groups.push(g)
