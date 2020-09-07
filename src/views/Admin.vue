@@ -7,8 +7,8 @@
     </v-row>
     <v-card v-if="group" style="width: 95%;">
       <v-card-title>照片预览</v-card-title>
-      <div style="width: 100%; display: flex; flex-wrap: wrap; justify-content: center;">
-        <div v-for="(v, k) in data[group]" :key="k" style="margin: 10px;">
+      <div style="width: 100%;">
+        <div v-for="(v, k) in data[group]" :key="k" style="margin: 10px; display: inline-block;">
           <img :src="v.url" alt="无照片" style="width: 147.5px; height: 206.5px; object-position: center;" :name="v.name">
           <h3>{{ v.name }}</h3>
         </div>
