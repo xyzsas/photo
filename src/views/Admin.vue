@@ -54,44 +54,27 @@ export default {
           this.tip = err.response.data
         })
     },
-    download () {
-      let _this = this
+    async download () {
       let zip = new JSZip()
-      let cache = {}
-      let promises = []
-      let times = 1
       const images = this.data[this.group]
-      const filename = "photo"
-      var setIme = setInterval(() => {
-        times++
-        console.log(times)
-      }, 1000)
-
+      this.tip = '正在压缩，请稍等...'
       for (const i in images) {
         const item = images[i]
-        const promise = _this.getImgArrayBuffer(item.url).then(data => {
-          // 下载文件, 并存成ArrayBuffer对象(blob)
-          zip.file(item.name, data, { binary: true }) // 逐个添加文件
-          cache[item.name] = data
-        });
-        promises.push(promise)
+        const data = await this.getImgArrayBuffer(item.url)
+        if (data) zip.file(item.name + '.png', data, { binary: true })
       }
-      Promise.all(promises)
-        .then(() => {
-          zip.generateAsync({ type: "blob" }).then(content => {
-            // 生成二进制流
-            FileSaver.saveAs(content, filename) // 利用file-saver保存文件  自定义文件名
-            this.tip = "压缩完成"
-            window.clearInterval(setIme)
-          })
+      zip.generateAsync({ type: "blob" })
+        .then(content => {
+          FileSaver.saveAs(content, this.group)
+          this.tip = "压缩完成"
         })
         .catch(() => {
           this.tip = "文件压缩失败"
         })
     },
     //获取文件blob
-    getImgArrayBuffer(url) {
-      return new Promise((resolve, reject) => {
+    async getImgArrayBuffer (url) {
+      return await new Promise((resolve, reject) => {
         let xmlhttp = new XMLHttpRequest()
         xmlhttp.open("GET", url, true)
         xmlhttp.responseType = "blob"
@@ -99,11 +82,11 @@ export default {
           if (this.status == 200) {
             resolve(this.response)
           } else {
-            reject(this.status)
+            reject(false)
           }
         }
         xmlhttp.send()
-      })
+      }).then(resp => resp).catch(() => false)
     }
   }
 }
